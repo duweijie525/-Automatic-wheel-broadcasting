@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>轮播</title>
+		<style type="text/css">
+			*{
+				margin: 0 ;
+				padding: 0;
+				list-style: none;
+				text-decoration: none;
+			}
+			#banner{
+				width: 600px;
+				height: 400px;
+				overflow: hidden;
+				border: 5px solid #999;
+				position: relative;
+				margin:100px auto 0 auto;
+			}
+			#imglist{
+				height: 400px;
+				width: 3000px;
+			}
+			#imglist a{
+				display: none;
+			}
+			#touchlist{
+				position: absolute;
+				right: 20px;
+				bottom: 10px;
+			}
+			#touchlist li{
+				width: 25px;
+				height: 25px;
+				line-height: 25px;
+				text-align: center;
+				float: left;
+				background-color: #999;
+				border-radius: 13px;
+				color: #fff;
+				cursor: pointer;
+				margin-left: 5px;
+			}
+			img{
+				width: 600px;
+				height: 400px;
+				float: left;
+				position: absolute;
+			}
+			.arrow{
+			    font-size: 60px;
+				position: absolute;
+				top: 40%;
+				width: 40px;
+				height: 40px;
+				line-height: 35px;
+			}
+			.arrow:hover{
+				background-color: #999;
+			}
+			#next{
+				right:0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="banner">
+			<div id="imglist" style="left: 0px;">
+				<img src="img/1.jpg" id="img1">
+				<img src="img/2.jpg" id="img2">
+				<img src="img/3.jpg" id="img3">
+				<img src="img/4.jpg" id="img4">
+				<img src="img/5.jpg" id="img5">
+			</div>
+			<ul id="touchlist">
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+			</ul>
+			<a href="#" id="prev" class="arrow">&lt;</a>
+			<a href="#" id="next" class="arrow">&gt;</a>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var imgs = document.getElementById('imglist').getElementsByTagName('img');
+		var touch = document.getElementById('touchlist').getElementsByTagName('li');
+		var div = document.getElementById('banner');
+		var list = document.getElementById('imglist');
+		var left = document.getElementById('prev');
+		var right = document.getElementById('next');
+		var n = 0;
+		//设置循环的变量
+		var m = 1;
+		//设置定时器
+		var timer = setInterval(run,1000);
+		
+		//循环函数
+		function run(){
+			if(m >= 5){
+				m=0
+			}
+			kongzhi(m);
+ 			//控制图标
+			contro(m);
+			m++;
+		}
+		run();
+		//定义一个函数,控制图片
+		function kongzhi(n){
+			for(var i = 0;i<imgs.length;i++){
+				imgs[i].style.display = "none";
+			}
+			//显示指定的图片
+			imgs[n].style.display = "block";
+			}
+		//定义一个函数,控制图标
+		function contro(n){
+			for(var i = 0;i<touch.length;i++){
+				touch[i].style.backgroundColor = "#999";
+			}
+			//当前图标颜色变红
+			touch[n].style.backgroundColor = "red";
+		}
+		//鼠标悬停事件
+		div.onmouseover = function(){
+		//停止定时器
+		clearInterval(timer);
+		}
+		
+		//鼠标移走事件
+		div.onmouseout = function(){
+		//再次重启定时器
+		timer = setInterval(run,1000);
+		}
+		
+		//给图标绑定事件
+		for (var i = 0;i<touch.length;i++){
+		//闭包
+		(function(i){
+			touch[i].onmouseover = function(){
+				kongzhi(i);
+				contro(i);
+				//改变循环变量
+				m = i + 1;
+			}
+		})(i)
+		}
+		//点击左边按钮换页
+ 		left.onclick = function(){
+			imgs[n].style.display = 'none';
+			n--;
+			if(n<0){
+				n = imgs.length-1;
+			}
+			imgs[n].style.display = 'block';
+			contro(n);
+		}
+		//点击右边按钮换页
+		right.onclick = function(){
+			imgs[n].style.display = 'none';
+			n++;
+			if(n>=imgs.length){
+				n = 0;
+			}
+			imgs[n].style.display = 'block';
+			contro(n);
+		}
+ 	</script>
+</html>

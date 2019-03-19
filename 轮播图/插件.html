@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/css/swiper.min.css">
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.min.js"></script>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			img{
+				width: 1280px;
+				height: 500px;
+				margin-left: 40px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+			<div class="swiper-slide"><img src="img/1.jpg" ></div>
+			<div class="swiper-slide"><img src="img/2.jpg" ></div>
+			<div class="swiper-slide"><img src="img/3.jpg" ></div>
+			<div class="swiper-slide"><img src="img/4.jpg" ></div>
+			<div class="swiper-slide"><img src="img/5.jpg" ></div>
+			</div>
+			<div class="swiper-pagination"></div>
+			<div class="swiper-button-prev"></div><!--左箭头-->
+			<div class="swiper-button-next"></div><!--右箭头-->
+		</div>
+	</body>
+	<script type="text/javascript">
+		var mySwiper = new Swiper('.swiper-container', {
+			autoplay:{
+				 delay: 1000,
+			} ,//可选选项，自动滑动
+			pagination: {
+			el: '.swiper-pagination',//分页容器
+			clickable :true,//点击圆点跳转
+			},//分页
+			navigation: {
+			nextEl: '.swiper-button-next',//左按键
+			prevEl: '.swiper-button-prev',//右按键
+			},//左右按键
+			loop:true,//循环播放
+			effect: "coverflow"
+
+		})
+		//鼠标进入的时候停止 出去的时候继续轮播
+        mySwiper.el.onmouseover = function() {
+            mySwiper.autoplay.stop();
+        }
+        mySwiper.el.onmouseleave = function() {
+            mySwiper.autoplay.start();
+        }
+	</script>
+</html>
